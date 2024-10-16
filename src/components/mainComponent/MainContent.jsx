@@ -1,7 +1,7 @@
 import BalanceSheet from "../balanceSheet/BalanceSheet";
-import ExpenseSection from "../expense/ExpenseSection";
 import ExpenseTracker from "../expenseTracker/ExpenceTracker";
-import IncomeSection from "../Income/IncomeSection";
+import ExpenseSection from "../expenseSection/ExpenseSection";
+import IncomeSection from "../IncomeSection/IncomeSection";
 
 const MainContent = () => {
   return (
@@ -18,8 +18,8 @@ const MainContent = () => {
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-              <ExpenseSection />
               <IncomeSection />
+              <ExpenseSection />
             </div>
           </div>
         </section>

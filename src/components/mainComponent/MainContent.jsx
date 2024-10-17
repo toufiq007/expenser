@@ -85,6 +85,7 @@ const MainContent = () => {
             formData={formData}
             setFormData={setFormData}
             updateExpense={updateExpense}
+            updateIncome={updateIncome}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />

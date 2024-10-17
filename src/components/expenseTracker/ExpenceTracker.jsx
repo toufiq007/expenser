@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-
 const initialFormData = {
   id: crypto.randomUUID(),
   category: "",
@@ -15,6 +13,7 @@ const ExpenceTracker = ({
   updateExpense,
   activeTab,
   setActiveTab,
+  updateIncome,
 }) => {
   const handleChange = (e) => {
     const name = e.target.name;
@@ -22,7 +21,7 @@ const ExpenceTracker = ({
     setFormData({ ...formData, [name]: value });
   };
 
-  const isAdd = Object.is(updateExpense, null);
+  const isAdd = Object.is(updateExpense | updateIncome, null);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (activeTab === "expense") {

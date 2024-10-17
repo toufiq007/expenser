@@ -10,14 +10,26 @@ const MainContent = () => {
   const [expenseList, setExpenseList] = useState(initialExpenseData);
 
   const totalIncome = incomeList.reduce((acc, prev) => {
-    return acc + prev.amount;
+    return acc + parseInt(prev.amount);
   }, 0);
 
   const totalExpense = expenseList.reduce((acc, prev) => {
-    return acc + prev.amount;
+    return acc + parseInt(prev.amount);
   }, 0);
 
   const tatalBalance = totalIncome - totalExpense;
+
+  const handleAddExpense = (expenseData) => {
+    setExpenseList((prev) => [...prev, expenseData]);
+    console.log(
+      expenseData,
+      "this is the incomeData inside handleAddIncome function"
+    );
+  };
+
+  const handleAddIncome = (incomeData) => {
+    setIncomeList((prev) => [...prev, incomeData]);
+  };
 
   console.log({ totalIncome, totalExpense });
 
@@ -25,12 +37,11 @@ const MainContent = () => {
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* <!-- Submission Form --> */}
-          <ExpenseTracker />
-
-          {/* <!-- Right Column --> */}
+          <ExpenseTracker
+            handleAddExpense={handleAddExpense}
+            handleAddIncome={handleAddIncome}
+          />
           <div className="lg:col-span-2">
-            {/* <!-- Total Balance Stat--> */}
             <BalanceSheet
               totalExpense={totalExpense}
               totalIncome={totalIncome}

@@ -1,7 +1,29 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const ExpenceTracker = () => {
+const initialFormData = {
+  id: crypto.randomUUID(),
+  category: "",
+  amount: 0,
+  date: "",
+};
+const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
   const [activeTab, setActiveTab] = useState("expense");
+  const [formData, setFormData] = useState(initialFormData);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormData(initialFormData);
+  };
+
+  console.log(formData, "this is the form data in expense tracker");
+
   return (
     <>
       <div className="p-6 py-8 bg-[#F9FAFB] border rounded-md">
@@ -9,7 +31,7 @@ const ExpenceTracker = () => {
           Expense Tracker
         </h2>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6">
             <div
               onClick={() => setActiveTab("expense")}
@@ -42,9 +64,12 @@ const ExpenceTracker = () => {
                 <select
                   id="category"
                   name="category"
+                  value={formData.category}
+                  onChange={(e) => handleChange(e)}
                   autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                 >
+                  <option>Select</option>
                   <option>Education</option>
                   <option>Food</option>
                   <option>Health</option>
@@ -60,9 +85,12 @@ const ExpenceTracker = () => {
                 <select
                   id="category"
                   name="category"
+                  value={formData.category}
+                  onChange={(e) => handleChange(e)}
                   autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                 >
+                  <option>Select</option>
                   <option>Salary</option>
                   <option>Outsourcing</option>
                   <option>Bond</option>
@@ -83,6 +111,8 @@ const ExpenceTracker = () => {
               <input
                 type="number"
                 name="amount"
+                value={formData.amount}
+                onChange={(e) => handleChange(e)}
                 id="amount"
                 autoComplete="off"
                 placeholder="12931"
@@ -102,6 +132,8 @@ const ExpenceTracker = () => {
               <input
                 type="date"
                 name="date"
+                value={formData.date}
+                onChange={(e) => handleChange(e)}
                 id="date"
                 autoComplete="off"
                 placeholder="12931"
@@ -112,6 +144,11 @@ const ExpenceTracker = () => {
 
           <button
             type="submit"
+            onClick={() => {
+              activeTab === "expense"
+                ? handleAddExpense(formData)
+                : handleAddIncome(formData);
+            }}
             className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full"
           >
             Save

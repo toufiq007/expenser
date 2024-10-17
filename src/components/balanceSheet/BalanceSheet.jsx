@@ -1,4 +1,4 @@
-const BalanceSheet = () => {
+const BalanceSheet = ({ totalIncome, totalExpense, totalBalance }) => {
   return (
     <>
       <div className="bg-white">
@@ -7,7 +7,14 @@ const BalanceSheet = () => {
             <div className="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
               <dt className="text-base leading-7 text-gray-600">Balance</dt>
               <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-                BDT 20000
+                BDT
+                <span
+                  className={`${
+                    totalExpense > totalIncome ? "text-red-600" : ""
+                  }`}
+                >
+                  {totalBalance}
+                </span>
               </dd>
             </div>
             <div className="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
@@ -15,7 +22,7 @@ const BalanceSheet = () => {
                 Total Income
               </dt>
               <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-                BDT 20000
+                BDT {totalIncome}
               </dd>
             </div>
             <div className="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
@@ -23,7 +30,7 @@ const BalanceSheet = () => {
                 Total Expense
               </dt>
               <dd className="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-                BDT 20000
+                BDT {totalExpense}
               </dd>
             </div>
           </dl>

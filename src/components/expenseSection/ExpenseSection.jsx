@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { ExpenseSectionIcon } from "../../assets/svgicons/svgIcons";
 import ExpenseFilterSection from "./ExpenseFilterSection";
 import ExpenseSortingSection from "./ExpenseSortingSection";
 import SingleExpense from "./SingleExpense";
 
-const ExpenseSection = () => {
+const ExpenseSection = ({ expenseList }) => {
   return (
     <>
       {/* <!-- Income --> */}
@@ -27,8 +28,10 @@ const ExpenseSection = () => {
         </div>
 
         <div className="p-4 divide-y">
-          <SingleExpense />
-          <SingleExpense />
+          {expenseList.length > 0 &&
+            expenseList.map((expense) => (
+              <SingleExpense key={expense.id} expense={expense} />
+            ))}
         </div>
       </div>
     </>

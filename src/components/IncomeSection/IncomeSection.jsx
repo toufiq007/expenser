@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { IncomeSectionIcon } from "../../assets/svgicons/svgIcons";
 import IncomeFilterSection from "./IncomeFilterSection";
 import IncomeSortingSection from "./IncomeSortingSection";
 import SingleIncome from "./SingleIncome";
 
-const IncomeSection = () => {
+const IncomeSection = ({ incomeList }) => {
   return (
     <>
       {/* <!-- Expense --> */}
@@ -27,8 +28,8 @@ const IncomeSection = () => {
         </div>
 
         <div className="p-4 divide-y">
-          <SingleIncome />
-          <SingleIncome />
+          {incomeList.length > 0 &&
+            incomeList.map((income) => <SingleIncome key={income.id} income={income} />)}
         </div>
       </div>
     </>

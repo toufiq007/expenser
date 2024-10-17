@@ -2,8 +2,12 @@ import BalanceSheet from "../balanceSheet/BalanceSheet";
 import ExpenseTracker from "../expenseTracker/ExpenceTracker";
 import ExpenseSection from "../expenseSection/ExpenseSection";
 import IncomeSection from "../IncomeSection/IncomeSection";
+import { useState } from "react";
+import { initialExpenseData, initialIncomeData } from "../../utils/utils";
 
 const MainContent = () => {
+  const [incomeList, setIncomeList] = useState(initialIncomeData);
+  const [expenseList, setExpenseList] = useState(initialExpenseData);
   return (
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -18,8 +22,8 @@ const MainContent = () => {
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-              <IncomeSection />
-              <ExpenseSection />
+              <IncomeSection incomeList={incomeList} />
+              <ExpenseSection expenseList={expenseList} />
             </div>
           </div>
         </section>

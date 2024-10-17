@@ -1,31 +1,31 @@
 export const initialIncomeData = [
   {
     id: crypto.randomUUID(),
+    amount: "30000",
     category: "Salary",
-    amount: 40000,
-    date: "2024-1-09",
+    date: "2024-10-09",
   },
 
   {
     id: crypto.randomUUID(),
-    category: "Sales",
-    amount: 20000,
-    date: "2024-05-23",
+    amount: "30000",
+    category: "Bond",
+    date: "2024-10-09",
   },
 ];
 
 export const initialExpenseData = [
   {
     id: crypto.randomUUID(),
+    amount: "20000",
     category: "Education",
-    amount: 10000,
-    date: "2024-12-12",
+    date: "2024-10-09",
   },
 
   {
     id: crypto.randomUUID(),
-    category: "Health",
-    amount: 60000,
-    date: "2024-5-09",
+    amount: "30000",
+    category: "Tax",
+    date: "2024-10-09",
   },
 ];

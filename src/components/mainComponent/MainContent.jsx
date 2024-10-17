@@ -8,6 +8,13 @@ import { initialExpenseData, initialIncomeData } from "../../utils/utils";
 const MainContent = () => {
   const [incomeList, setIncomeList] = useState(initialIncomeData);
   const [expenseList, setExpenseList] = useState(initialExpenseData);
+  const [updateExpense, setUpdateExpense] = useState(null);
+  const [formData, setFormData] = useState({
+    id: "",
+    category: "",
+    amount: 0,
+    date: "",
+  });
 
   const totalIncome = incomeList.reduce((acc, prev) => {
     return acc + parseInt(prev.amount);
@@ -19,8 +26,17 @@ const MainContent = () => {
 
   const tatalBalance = totalIncome - totalExpense;
 
-  const handleAddExpense = (expenseData) => {
-    setExpenseList((prev) => [...prev, expenseData]);
+  const handleAddExpense = (newExpenseData, isAdd) => {
+    console.log(isAdd, "this is the isadd function inside handleAddExpense");
+    if (isAdd) {
+      setExpenseList((prev) => [...prev, newExpenseData]);
+    } else {
+      setExpenseList((expenses) =>
+        expenses.map((expense) =>
+          expense.id === newExpenseData.id ? newExpenseData : expense
+        )
+      );
+    }
   };
 
   const handleAddIncome = (incomeData) => {
@@ -36,6 +52,11 @@ const MainContent = () => {
     setExpenseList(updateIncome);
   };
 
+  const handleFindUpdateExpense = (expense) => {
+    setUpdateExpense(expense);
+    setFormData(expense);
+  };
+
   return (
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -43,6 +64,9 @@ const MainContent = () => {
           <ExpenseTracker
             handleAddExpense={handleAddExpense}
             handleAddIncome={handleAddIncome}
+            formData={formData}
+            setFormData={setFormData}
+            updateExpense={updateExpense}
           />
           <div className="lg:col-span-2">
             <BalanceSheet
@@ -60,6 +84,7 @@ const MainContent = () => {
               <ExpenseSection
                 handleDeleteExpense={handleDeleteExpense}
                 expenseList={expenseList}
+                handleFindUpdateExpense={handleFindUpdateExpense}
               />
             </div>
           </div>

@@ -7,18 +7,28 @@ const initialFormData = {
   amount: 0,
   date: "",
 };
-const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
+const ExpenceTracker = ({
+  handleAddExpense,
+  handleAddIncome,
+  formData,
+  setFormData,
+  updateExpense,
+}) => {
   const [activeTab, setActiveTab] = useState("expense");
-  const [formData, setFormData] = useState(initialFormData);
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-
     setFormData({ ...formData, [name]: value });
   };
-
+  // const [isAdd, setIsAdd] = useState(Object.is(updateExpense, null));
+  const isAdd = Object.is(updateExpense, null);
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    handleAddExpense(formData, isAdd);
+    // handleAddIncome(formData);
+
     setFormData(initialFormData);
   };
 
@@ -64,6 +74,7 @@ const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
                 <select
                   id="category"
                   name="category"
+                  required
                   value={formData.category}
                   onChange={(e) => handleChange(e)}
                   autoComplete="category-name"
@@ -85,6 +96,7 @@ const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
                 <select
                   id="category"
                   name="category"
+                  required
                   value={formData.category}
                   onChange={(e) => handleChange(e)}
                   autoComplete="category-name"
@@ -111,6 +123,7 @@ const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
               <input
                 type="number"
                 name="amount"
+                required
                 value={formData.amount}
                 onChange={(e) => handleChange(e)}
                 id="amount"
@@ -132,6 +145,7 @@ const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
               <input
                 type="date"
                 name="date"
+                required
                 value={formData.date}
                 onChange={(e) => handleChange(e)}
                 id="date"
@@ -144,11 +158,6 @@ const ExpenceTracker = ({ handleAddExpense, handleAddIncome }) => {
 
           <button
             type="submit"
-            onClick={() => {
-              activeTab === "expense"
-                ? handleAddExpense(formData)
-                : handleAddIncome(formData);
-            }}
             className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full"
           >
             Save

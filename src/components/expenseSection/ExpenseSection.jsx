@@ -4,7 +4,7 @@ import ExpenseFilterSection from "./ExpenseFilterSection";
 import ExpenseSortingSection from "./ExpenseSortingSection";
 import SingleExpense from "./SingleExpense";
 
-const ExpenseSection = ({ expenseList,handleDeleteExpense }) => {
+const ExpenseSection = ({ expenseList,handleDeleteExpense ,handleFindUpdateExpense}) => {
   return (
     <>
       {/* <!-- Income --> */}
@@ -30,7 +30,7 @@ const ExpenseSection = ({ expenseList,handleDeleteExpense }) => {
         <div className="p-4 divide-y">
           {expenseList.length > 0 &&
             expenseList.map((expense) => (
-              <SingleExpense handleDeleteExpense={handleDeleteExpense} key={expense.id} expense={expense} />
+              <SingleExpense handleFindUpdateExpense={handleFindUpdateExpense} handleDeleteExpense={handleDeleteExpense} key={expense.id} expense={expense} />
             ))}
         </div>
       </div>

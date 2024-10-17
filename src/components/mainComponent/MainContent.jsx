@@ -21,17 +21,20 @@ const MainContent = () => {
 
   const handleAddExpense = (expenseData) => {
     setExpenseList((prev) => [...prev, expenseData]);
-    console.log(
-      expenseData,
-      "this is the incomeData inside handleAddIncome function"
-    );
   };
 
   const handleAddIncome = (incomeData) => {
     setIncomeList((prev) => [...prev, incomeData]);
   };
 
-  console.log({ totalIncome, totalExpense });
+  const handleDeleteIncome = (id) => {
+    const updateIncome = incomeList.filter((income) => income.id !== id);
+    setIncomeList(updateIncome);
+  };
+  const handleDeleteExpense = (id) => {
+    const updateIncome = expenseList.filter((income) => income.id !== id);
+    setExpenseList(updateIncome);
+  };
 
   return (
     <>
@@ -50,8 +53,14 @@ const MainContent = () => {
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-              <IncomeSection incomeList={incomeList} />
-              <ExpenseSection expenseList={expenseList} />
+              <IncomeSection
+                handleDeleteIncome={handleDeleteIncome}
+                incomeList={incomeList}
+              />
+              <ExpenseSection
+                handleDeleteExpense={handleDeleteExpense}
+                expenseList={expenseList}
+              />
             </div>
           </div>
         </section>

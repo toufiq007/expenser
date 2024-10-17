@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { DeleteIcon, EditIcon } from "../../assets/svgicons/svgIcons";
 
-const SingleExpense = ({ expense }) => {
+const SingleExpense = ({ expense, handleDeleteExpense }) => {
   return (
     <>
       <div className="flex justify-between items-center py-2 relative group cursor-pointer">
@@ -26,7 +26,12 @@ const SingleExpense = ({ expense }) => {
               <EditIcon />
             </button>
 
-            <button className="hover:text-red-600" role="button" title="Delete">
+            <button
+              onClick={() => handleDeleteExpense(expense.id)}
+              className="hover:text-red-600"
+              role="button"
+              title="Delete"
+            >
               <DeleteIcon />
             </button>
           </div>

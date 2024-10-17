@@ -8,27 +8,29 @@ const initialFormData = {
   date: "",
 };
 const ExpenceTracker = ({
-  handleAddExpense,
-  handleAddIncome,
+  handleAddOrEditExpense,
+  handleAddOrEditIncome,
   formData,
   setFormData,
   updateExpense,
+  activeTab,
+  setActiveTab,
 }) => {
-  const [activeTab, setActiveTab] = useState("expense");
-
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormData({ ...formData, [name]: value });
   };
-  // const [isAdd, setIsAdd] = useState(Object.is(updateExpense, null));
+
   const isAdd = Object.is(updateExpense, null);
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    handleAddExpense(formData, isAdd);
-    // handleAddIncome(formData);
-
+    if (activeTab === "expense") {
+      handleAddOrEditExpense(formData, isAdd);
+    }
+    if (activeTab === "income") {
+      handleAddOrEditIncome(formData, isAdd);
+    }
     setFormData(initialFormData);
   };
 

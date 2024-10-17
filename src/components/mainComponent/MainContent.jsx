@@ -8,7 +8,9 @@ import { initialExpenseData, initialIncomeData } from "../../utils/utils";
 const MainContent = () => {
   const [incomeList, setIncomeList] = useState(initialIncomeData);
   const [expenseList, setExpenseList] = useState(initialExpenseData);
+  const [activeTab, setActiveTab] = useState("expense");
   const [updateExpense, setUpdateExpense] = useState(null);
+  const [updateIncome, setUpdateIncome] = useState(null);
   const [formData, setFormData] = useState({
     id: "",
     category: "",
@@ -26,8 +28,8 @@ const MainContent = () => {
 
   const tatalBalance = totalIncome - totalExpense;
 
-  const handleAddExpense = (newExpenseData, isAdd) => {
-    console.log(isAdd, "this is the isadd function inside handleAddExpense");
+  const handleAddOrEditExpense = (newExpenseData, isAdd) => {
+    console.log(isAdd, "this is the is Add in handleAddOredit function");
     if (isAdd) {
       setExpenseList((prev) => [...prev, newExpenseData]);
     } else {
@@ -39,8 +41,17 @@ const MainContent = () => {
     }
   };
 
-  const handleAddIncome = (incomeData) => {
-    setIncomeList((prev) => [...prev, incomeData]);
+  const handleAddOrEditIncome = (newIncomeData, isAdd) => {
+    console.log(isAdd, "this is the is Add in handleAddOredit function");
+    if (isAdd) {
+      setIncomeList((prev) => [...prev, newIncomeData]);
+    } else {
+      setIncomeList((incomes) =>
+        incomes.map((income) =>
+          income.id === newIncomeData.id ? newIncomeData : income
+        )
+      );
+    }
   };
 
   const handleDeleteIncome = (id) => {
@@ -53,8 +64,15 @@ const MainContent = () => {
   };
 
   const handleFindUpdateExpense = (expense) => {
+    setActiveTab("expense");
     setUpdateExpense(expense);
     setFormData(expense);
+  };
+
+  const handleFindUpdateIncome = (income) => {
+    setActiveTab("income");
+    setUpdateIncome(income);
+    setFormData(income);
   };
 
   return (
@@ -62,11 +80,13 @@ const MainContent = () => {
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <ExpenseTracker
-            handleAddExpense={handleAddExpense}
-            handleAddIncome={handleAddIncome}
+            handleAddOrEditExpense={handleAddOrEditExpense}
+            handleAddOrEditIncome={handleAddOrEditIncome}
             formData={formData}
             setFormData={setFormData}
             updateExpense={updateExpense}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
           />
           <div className="lg:col-span-2">
             <BalanceSheet
@@ -80,6 +100,7 @@ const MainContent = () => {
               <IncomeSection
                 handleDeleteIncome={handleDeleteIncome}
                 incomeList={incomeList}
+                handleFindUpdateIncome={handleFindUpdateIncome}
               />
               <ExpenseSection
                 handleDeleteExpense={handleDeleteExpense}

@@ -4,7 +4,7 @@ import IncomeFilterSection from "./IncomeFilterSection";
 import IncomeSortingSection from "./IncomeSortingSection";
 import SingleIncome from "./SingleIncome";
 
-const IncomeSection = ({ incomeList,handleDeleteIncome }) => {
+const IncomeSection = ({ incomeList,handleDeleteIncome,handleFindUpdateIncome }) => {
   return (
     <>
       {/* <!-- Expense --> */}
@@ -29,7 +29,7 @@ const IncomeSection = ({ incomeList,handleDeleteIncome }) => {
 
         <div className="p-4 divide-y">
           {incomeList.length > 0 &&
-            incomeList.map((income) => <SingleIncome handleDeleteIncome={handleDeleteIncome} key={income.id} income={income} />)}
+            incomeList.map((income) => <SingleIncome handleFindUpdateIncome={handleFindUpdateIncome} handleDeleteIncome={handleDeleteIncome} key={income.id} income={income} />)}
         </div>
       </div>
     </>

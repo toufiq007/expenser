@@ -25,8 +25,6 @@ const ExpenceTracker = ({
     setFormData(initialFormData);
   };
 
-  console.log(formData, "this is the form data in expense tracker");
-
   return (
     <>
       <div className="p-6 py-8 bg-[#F9FAFB] border rounded-md">

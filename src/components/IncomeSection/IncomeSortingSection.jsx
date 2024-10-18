@@ -1,7 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { SortingIcon } from "../../assets/svgicons/svgIcons";
 
-const IncomeSortingSection = () => {
+const SortingSection = ({
+  lowToHighSort,
+  unsortedList,
+  dataList,
+  highToLowSort,
+}) => {
   const [showSortingSection, setShowSortingSection] = useState(false);
   return (
     <>
@@ -29,24 +35,23 @@ const IncomeSortingSection = () => {
             tabIndex="-1"
           >
             <div className="py-1" role="none">
-              <a
-                href="#"
+              <button
+                onClick={() =>
+                  lowToHighSort(unsortedList, "lowtohigh", dataList)
+                }
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
-                role="menuitem"
-                tabIndex="-1"
-                id="menu-item-0"
               >
-                Low to High
-              </a>
-              <a
-                href="#"
+                Low to high
+              </button>
+
+              <button
+                onClick={() =>
+                  highToLowSort(unsortedList, "highToLow", dataList)
+                }
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
-                role="menuitem"
-                tabIndex="-1"
-                id="menu-item-0"
               >
-                High to Low
-              </a>
+                High to low
+              </button>
             </div>
           </div>
         )}
@@ -55,4 +60,4 @@ const IncomeSortingSection = () => {
   );
 };
 
-export default IncomeSortingSection;
+export default SortingSection;

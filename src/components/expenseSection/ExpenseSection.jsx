@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import { ExpenseSectionIcon } from "../../assets/svgicons/svgIcons";
+import SortingSection from "../IncomeSection/IncomeSortingSection";
 import ExpenseFilterSection from "./ExpenseFilterSection";
-import ExpenseSortingSection from "./ExpenseSortingSection";
 import SingleExpense from "./SingleExpense";
 
-const ExpenseSection = ({ expenseList,handleDeleteExpense ,handleFindUpdateExpense}) => {
+const ExpenseSection = ({
+  expenseList,
+  handleDeleteExpense,
+  handleFindUpdateExpense,
+  lowToHighSort,
+  highToLowSort,
+}) => {
   return (
     <>
       {/* <!-- Income --> */}
@@ -22,7 +28,12 @@ const ExpenseSection = ({ expenseList,handleDeleteExpense ,handleFindUpdateExpen
           </div>
 
           <div>
-            <ExpenseSortingSection />
+            <SortingSection
+              lowToHighSort={lowToHighSort}
+              unsortedList={expenseList}
+              dataList="expenseList"
+              highToLowSort={highToLowSort}
+            />
             <ExpenseFilterSection />
           </div>
         </div>
@@ -30,7 +41,12 @@ const ExpenseSection = ({ expenseList,handleDeleteExpense ,handleFindUpdateExpen
         <div className="p-4 divide-y">
           {expenseList.length > 0 &&
             expenseList.map((expense) => (
-              <SingleExpense handleFindUpdateExpense={handleFindUpdateExpense} handleDeleteExpense={handleDeleteExpense} key={expense.id} expense={expense} />
+              <SingleExpense
+                handleFindUpdateExpense={handleFindUpdateExpense}
+                handleDeleteExpense={handleDeleteExpense}
+                key={expense.id}
+                expense={expense}
+              />
             ))}
         </div>
       </div>

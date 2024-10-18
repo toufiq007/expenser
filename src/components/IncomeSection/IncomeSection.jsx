@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import { IncomeSectionIcon } from "../../assets/svgicons/svgIcons";
 import IncomeFilterSection from "./IncomeFilterSection";
-import IncomeSortingSection from "./IncomeSortingSection";
+import SortingSection from "./IncomeSortingSection";
 import SingleIncome from "./SingleIncome";
 
-const IncomeSection = ({ incomeList,handleDeleteIncome,handleFindUpdateIncome }) => {
+const IncomeSection = ({
+  incomeList,
+  handleDeleteIncome,
+  handleFindUpdateIncome,
+  lowToHighSort,
+  highToLowSort,
+}) => {
   return (
     <>
       {/* <!-- Expense --> */}
@@ -22,14 +28,26 @@ const IncomeSection = ({ incomeList,handleDeleteIncome,handleFindUpdateIncome })
             </div>
           </div>
           <div>
-            <IncomeSortingSection />
+            <SortingSection
+              lowToHighSort={lowToHighSort}
+              unsortedList={incomeList}
+              dataList="incomeList"
+              highToLowSort={highToLowSort}
+            />
             <IncomeFilterSection />
           </div>
         </div>
 
         <div className="p-4 divide-y">
           {incomeList.length > 0 &&
-            incomeList.map((income) => <SingleIncome handleFindUpdateIncome={handleFindUpdateIncome} handleDeleteIncome={handleDeleteIncome} key={income.id} income={income} />)}
+            incomeList.map((income) => (
+              <SingleIncome
+                handleFindUpdateIncome={handleFindUpdateIncome}
+                handleDeleteIncome={handleDeleteIncome}
+                key={income.id}
+                income={income}
+              />
+            ))}
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import { IncomeSectionIcon } from "../../assets/svgicons/svgIcons";
 import SortingSection from "../sortingSection/SortingSection";
 import SingleIncome from "./SingleIncome";
 import { incomeCategories } from "../../utils/utils";
-import FilterSection from "./IncomeFilterSection";
+import FilterSection from "../filterSection/IncomeFilterSection";
 
 const IncomeSection = ({
   incomeList,

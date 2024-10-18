@@ -7,14 +7,7 @@ const FilterSection = ({
   selectedCategories,
   categories,
 }) => {
-  console.log(
-    handleCategoryChange,
-    selectedCategories,
-    categories,
-    "this is the fitler section"
-  );
   const [showFilterSection, setShowFilterSection] = useState(false);
-  console.log(categories, "this is the categories from incomeFitler Section");
   return (
     <>
       <div className="relative inline-block text-left">

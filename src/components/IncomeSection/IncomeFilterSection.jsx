@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FilterIcon } from "../../assets/svgicons/svgIcons";
 
-const IncomeFilterSection = () => {
+const IncomeFilterSection = ({ incomeList }) => {
   const [showFilterSection, setShowFilterSection] = useState(false);
+  console.log(incomeList, "this is the incomelist data");
   return (
     <>
       <div className="relative inline-block text-left">

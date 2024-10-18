@@ -89,17 +89,6 @@ const MainContent = () => {
     setUpdateIncome(income);
     setFormData(income);
   };
-
-  // sorting function
-  // const lowToHighSort = (unsortedList) => {
-  //   console.log(unsortedList, "this is the unsorted list");
-  //   const sortedList = unsortedList.sort(
-  //     (a, b) => parseInt(a.amount) - parseInt(b.amount)
-  //   );
-  //   console.log({ sortedList }, "this is the sorted data");
-  //   setIncomeList((prev) => [...sortedList]);
-  // };
-
   const lowToHighSort = (unsortedList, sortCondition, dataList) => {
     if (sortCondition === "lowtohigh" && dataList === "incomeList") {
       const sortedList = unsortedList.sort(

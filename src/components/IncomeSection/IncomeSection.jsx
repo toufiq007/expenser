@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { IncomeSectionIcon } from "../../assets/svgicons/svgIcons";
 import IncomeFilterSection from "./IncomeFilterSection";
-import SortingSection from "./IncomeSortingSection";
+import SortingSection from "../sortingSection/SortingSection";
 import SingleIncome from "./SingleIncome";
 
 const IncomeSection = ({
@@ -34,7 +34,7 @@ const IncomeSection = ({
               dataList="incomeList"
               highToLowSort={highToLowSort}
             />
-            <IncomeFilterSection />
+            <IncomeFilterSection incomeList={incomeList} />
           </div>
         </div>
 

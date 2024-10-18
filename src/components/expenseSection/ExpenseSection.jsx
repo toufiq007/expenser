@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { ExpenseSectionIcon } from "../../assets/svgicons/svgIcons";
-import SortingSection from "../IncomeSection/IncomeSortingSection";
+import SortingSection from "../sortingSection/SortingSection";
 import ExpenseFilterSection from "./ExpenseFilterSection";
 import SingleExpense from "./SingleExpense";
 

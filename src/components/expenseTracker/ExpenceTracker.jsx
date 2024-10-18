@@ -1,3 +1,5 @@
+import { expenseCategories, incomeCategories } from "../../utils/utils";
+
 /* eslint-disable react/prop-types */
 const initialFormData = {
   id: crypto.randomUUID(),
@@ -71,15 +73,9 @@ const ExpenceTracker = ({
                   autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                 >
-                  <option>Select</option>
-                  <option>Education</option>
-                  <option>Food</option>
-                  <option>Health</option>
-                  <option>Bill</option>
-                  <option>Insurance</option>
-                  <option>Tax</option>
-                  <option>Transport</option>
-                  <option>Telephone</option>
+                  {expenseCategories.map((expense) => (
+                    <option key={expense.id}>{expense.categoryOption}</option>
+                  ))}
                 </select>
               </div>
             ) : (
@@ -93,11 +89,9 @@ const ExpenceTracker = ({
                   autoComplete="category-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                 >
-                  <option>Select</option>
-                  <option>Salary</option>
-                  <option>Outsourcing</option>
-                  <option>Bond</option>
-                  <option>Dividen</option>
+                  {incomeCategories.map((income) => (
+                    <option key={income.key}>{income.categoryOption}</option>
+                  ))}
                 </select>
               </div>
             )}

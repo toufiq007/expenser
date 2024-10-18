@@ -8,7 +8,7 @@ export const initialIncomeData = [
 
   {
     id: crypto.randomUUID(),
-    amount: "30000",
+    amount: "50000",
     category: "Bond",
     date: "2024-10-09",
   },

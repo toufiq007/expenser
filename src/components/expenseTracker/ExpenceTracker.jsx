@@ -10,25 +10,17 @@ const ExpenceTracker = ({
   handleAddOrEditIncome,
   formData,
   setFormData,
-  updateExpense,
   activeTab,
   setActiveTab,
-  updateIncome,
+  handleChange,
 }) => {
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const isAdd = Object.is(updateExpense | updateIncome, null);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (activeTab === "expense") {
-      handleAddOrEditExpense(formData, isAdd);
+      handleAddOrEditExpense(formData);
     }
     if (activeTab === "income") {
-      handleAddOrEditIncome(formData, isAdd);
+      handleAddOrEditIncome(formData);
     }
     setFormData(initialFormData);
   };

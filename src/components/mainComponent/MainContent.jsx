@@ -11,12 +11,6 @@ const MainContent = () => {
   const [activeTab, setActiveTab] = useState("expense");
   const [updateExpense, setUpdateExpense] = useState(null);
   const [updateIncome, setUpdateIncome] = useState(null);
-  const [formData, setFormData] = useState({
-    id: "",
-    category: "",
-    amount: 0,
-    date: "",
-  });
 
   const totalIncome = incomeList.reduce((acc, prev) => {
     return acc + parseInt(prev.amount);
@@ -28,31 +22,71 @@ const MainContent = () => {
 
   const tatalBalance = totalIncome - totalExpense;
 
-  const handleAddOrEditExpense = (newExpenseData, isAdd) => {
-    console.log(isAdd, "this is the is Add in handleAddOredit function");
-    if (isAdd) {
-      setExpenseList((prev) => [...prev, newExpenseData]);
-    } else {
-      setExpenseList((expenses) =>
-        expenses.map((expense) =>
+  const [formData, setFormData] = useState({
+    id: "",
+    category: "",
+    amount: 0,
+    date: "",
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  console.log(
+    formData,
+    "this is the formdata which is sent to the expenseTracker"
+  );
+  const handleAddOrEditExpense = (newExpenseData) => {
+    // Check if the new expense already exists in the list
+    const existingExpense = expenseList.find(
+      (expense) => expense.id === newExpenseData.id
+    );
+    if (existingExpense) {
+      // Edit the existing expense
+      setExpenseList((prevExpenses) =>
+        prevExpenses.map((expense) =>
           expense.id === newExpenseData.id ? newExpenseData : expense
         )
       );
+    } else {
+      // Add the new expense
+      setExpenseList((prevExpenses) => [...prevExpenses, newExpenseData]);
     }
   };
 
-  const handleAddOrEditIncome = (newIncomeData, isAdd) => {
-    console.log(isAdd, "this is the is Add in handleAddOredit function");
-    if (isAdd) {
-      setIncomeList((prev) => [...prev, newIncomeData]);
-    } else {
-      setIncomeList((incomes) =>
-        incomes.map((income) =>
+  const handleAddOrEditIncome = (newIncomeData) => {
+    // Check if the new expense already exists in the list
+    const existingIncome = incomeList.find(
+      (expense) => expense.id === newIncomeData.id
+    );
+    if (existingIncome) {
+      // Edit the existing expense
+      setIncomeList((prevIncomes) =>
+        prevIncomes.map((income) =>
           income.id === newIncomeData.id ? newIncomeData : income
         )
       );
+    } else {
+      // Add the new expense
+      setIncomeList((prevIncomes) => [...prevIncomes, newIncomeData]);
     }
   };
+
+  // const handleAddOrEditIncome = (newIncomeData, isAdd) => {
+  //   console.log(isAdd, "this is the is Add in handleAddOredit function");
+  //   if (isAdd) {
+  //     setIncomeList((prev) => [...prev, newIncomeData]);
+  //   } else {
+  //     setIncomeList((incomes) =>
+  //       incomes.map((income) =>
+  //         income.id === newIncomeData.id ? newIncomeData : income
+  //       )
+  //     );
+  //   }
+  // };
 
   const handleDeleteIncome = (id) => {
     const updateIncome = incomeList.filter((income) => income.id !== id);
@@ -88,6 +122,7 @@ const MainContent = () => {
             updateIncome={updateIncome}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
+            handleChange={handleChange}
           />
           <div className="lg:col-span-2">
             <BalanceSheet

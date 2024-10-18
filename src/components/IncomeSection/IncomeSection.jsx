@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { IncomeSectionIcon } from "../../assets/svgicons/svgIcons";
-import IncomeFilterSection from "./IncomeFilterSection";
 import SortingSection from "../sortingSection/SortingSection";
 import SingleIncome from "./SingleIncome";
+import { incomeCategories } from "../../utils/utils";
+import FilterSection from "./IncomeFilterSection";
 
 const IncomeSection = ({
   incomeList,
@@ -10,6 +11,8 @@ const IncomeSection = ({
   handleFindUpdateIncome,
   lowToHighSort,
   highToLowSort,
+  selectedCategories,
+  handleCategoryChange,
 }) => {
   return (
     <>
@@ -34,7 +37,12 @@ const IncomeSection = ({
               dataList="incomeList"
               highToLowSort={highToLowSort}
             />
-            <IncomeFilterSection incomeList={incomeList} />
+            <FilterSection
+              selectedCategories={selectedCategories}
+              handleCategoryChange={handleCategoryChange}
+              categories={incomeCategories}
+              filterProps="income"
+            />
           </div>
         </div>
 

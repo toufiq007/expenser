@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { ExpenseSectionIcon } from "../../assets/svgicons/svgIcons";
 import SortingSection from "../sortingSection/SortingSection";
-import ExpenseFilterSection from "./ExpenseFilterSection";
 import SingleExpense from "./SingleExpense";
+import { expenseCategories } from "../../utils/utils";
+import FilterSection from "../IncomeSection/IncomeFilterSection";
 
 const ExpenseSection = ({
   expenseList,
@@ -10,6 +11,8 @@ const ExpenseSection = ({
   handleFindUpdateExpense,
   lowToHighSort,
   highToLowSort,
+  selectedCategories,
+  handleCategoryChange,
 }) => {
   return (
     <>
@@ -34,7 +37,12 @@ const ExpenseSection = ({
               dataList="expenseList"
               highToLowSort={highToLowSort}
             />
-            <ExpenseFilterSection />
+            {/* <ExpenseFilterSection /> */}
+            <FilterSection
+              selectedCategories={selectedCategories}
+              handleCategoryChange={handleCategoryChange}
+              categories={expenseCategories}
+            />
           </div>
         </div>
 

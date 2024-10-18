@@ -1,9 +1,20 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FilterIcon } from "../../assets/svgicons/svgIcons";
 
-const IncomeFilterSection = ({ incomeList }) => {
+const FilterSection = ({
+  handleCategoryChange,
+  selectedCategories,
+  categories,
+}) => {
+  console.log(
+    handleCategoryChange,
+    selectedCategories,
+    categories,
+    "this is the fitler section"
+  );
   const [showFilterSection, setShowFilterSection] = useState(false);
-  console.log(incomeList, "this is the incomelist data");
+  console.log(categories, "this is the categories from incomeFitler Section");
   return (
     <>
       <div className="relative inline-block text-left">
@@ -30,39 +41,25 @@ const IncomeFilterSection = ({ incomeList }) => {
         >
           {showFilterSection && (
             <div className="py-1" role="none">
-              <label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-                  id="filter-option-1"
-                />
-                <span className="ml-2">Salary</span>
-              </label>
-              <label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-                  id="filter-option-2"
-                />
-                <span className="ml-2">Outsourcing</span>
-              </label>
-              <label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-                  id="filter-option-3"
-                />
-                <span className="ml-2">Bond</span>
-              </label>
-
-              <label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-                  id="filter-option-3"
-                />
-                <span className="ml-2">Dividend</span>
-              </label>
+              {categories.map((category) => (
+                <label
+                  key={category.id}
+                  className="inline-flex items-center px-4 py-2 text-sm text-gray-700"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(
+                      category.categoryOption
+                    )}
+                    onChange={() =>
+                      handleCategoryChange(category.categoryOption)
+                    }
+                    className="form-checkbox h-4 w-4 rounded-md text-gray-600"
+                    id={category.id}
+                  />
+                  <span className="ml-2">{category.categoryOption}</span>
+                </label>
+              ))}
             </div>
           )}
         </div>
@@ -71,4 +68,4 @@ const IncomeFilterSection = ({ incomeList }) => {
   );
 };
 
-export default IncomeFilterSection;
+export default FilterSection;

@@ -119,6 +119,52 @@ const MainContent = () => {
     }
   };
 
+  // code for filtering
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [expenseCategories, setExpenseCategories] = useState([]);
+
+  const handleExpenseChange = (categoryOption) => {
+    let updatedCategories;
+    if (expenseCategories.includes(categoryOption)) {
+      updatedCategories = expenseCategories.filter(
+        (option) => option !== categoryOption
+      );
+    } else {
+      updatedCategories = [...expenseCategories, categoryOption];
+    }
+    setExpenseCategories(updatedCategories);
+    if (updatedCategories.length === 0) {
+      setExpenseList(initialExpenseData);
+    } else {
+      const newFilteredIncomeList = expenseList.filter((income) =>
+        updatedCategories.includes(income.category)
+      );
+
+      console.log(newFilteredIncomeList, "this is inside expenseSection");
+      setExpenseList(newFilteredIncomeList);
+    }
+  };
+
+  const handleCategoryChange = (categoryOption) => {
+    let updatedCategories;
+    if (selectedCategories.includes(categoryOption)) {
+      updatedCategories = selectedCategories.filter(
+        (option) => option !== categoryOption
+      );
+    } else {
+      updatedCategories = [...selectedCategories, categoryOption];
+    }
+    setSelectedCategories(updatedCategories);
+    if (updatedCategories.length === 0) {
+      setIncomeList(initialIncomeData);
+    } else {
+      const newFilteredIncomeList = incomeList.filter((income) =>
+        updatedCategories.includes(income.category)
+      );
+      setIncomeList(newFilteredIncomeList);
+    }
+  };
+
   return (
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -149,6 +195,8 @@ const MainContent = () => {
                 handleFindUpdateIncome={handleFindUpdateIncome}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
+                selectedCategories={selectedCategories}
+                handleCategoryChange={handleCategoryChange}
               />
               <ExpenseSection
                 handleDeleteExpense={handleDeleteExpense}
@@ -156,6 +204,8 @@ const MainContent = () => {
                 handleFindUpdateExpense={handleFindUpdateExpense}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
+                selectedCategories={expenseCategories}
+                handleCategoryChange={handleExpenseChange}
               />
             </div>
           </div>

@@ -11,6 +11,7 @@ const IncomeSection = ({
   lowToHighSort,
   highToLowSort,
   handleFindUpdateIncome,
+  handleCheckBoxChange,
 }) => {
   return (
     <>
@@ -35,7 +36,10 @@ const IncomeSection = ({
               dataList="incomeList"
               highToLowSort={highToLowSort}
             />
-            <FilterSection categories={incomeCategories} />
+            <FilterSection
+              categories={incomeCategories}
+              handleCheckBoxChange={handleCheckBoxChange}
+            />
           </div>
         </div>
 

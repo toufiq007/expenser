@@ -110,6 +110,41 @@ const MainContent = () => {
     }
   };
 
+  //  filter section
+  const [selectedCategories, setSelectCategories] = useState([]);
+  const [selectIncome, setSelectIncome] = useState([]);
+  const handleCheckBoxChange = (e) => {
+    const { id, checked } = e.target;
+    if (checked) {
+      setSelectCategories((prev) => [...prev, id]);
+    } else {
+      setSelectCategories((prev) => prev.filter((c) => c !== id));
+    }
+  };
+
+  const handleChangeIncome = (e) => {
+    const { id, checked } = e.target;
+    if (checked) {
+      setSelectIncome((prev) => [...prev, id]);
+    } else {
+      setSelectIncome((prev) => prev.filter((c) => c !== id));
+    }
+  };
+
+  // filter the expenseList
+  const filterExpenseArray =
+    selectedCategories.length > 0
+      ? expenseList.filter((expense) =>
+          selectedCategories.includes(expense.category)
+        )
+      : expenseList;
+
+  // filter the incomelist
+  const filterIncomeArray =
+    selectIncome.length > 0
+      ? incomeList.filter((income) => selectIncome.includes(income.category))
+      : incomeList;
+
   return (
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
@@ -132,18 +167,20 @@ const MainContent = () => {
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
               <IncomeSection
-                incomeList={incomeList}
+                incomeList={filterIncomeArray}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
                 handleFindUpdateIncome={handleFindUpdateIncome}
                 handleDeleteIncome={handleDeleteIncome}
+                handleCheckBoxChange={handleChangeIncome}
               />
               <ExpenseSection
-                expenseList={expenseList}
+                expenseList={filterExpenseArray}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
                 handleFindUpdateExpense={handleFindUpdateExpense}
                 handleDeleteExpense={handleDeleteExpense}
+                handleCheckBoxChange={handleCheckBoxChange}
               />
             </div>
           </div>

@@ -11,8 +11,6 @@ const ExpenseSection = ({
   handleFindUpdateExpense,
   lowToHighSort,
   highToLowSort,
-  selectedCategories,
-  handleCategoryChange,
 }) => {
   return (
     <>
@@ -37,12 +35,7 @@ const ExpenseSection = ({
               dataList="expenseList"
               highToLowSort={highToLowSort}
             />
-            {/* <ExpenseFilterSection /> */}
-            <FilterSection
-              selectedCategories={selectedCategories}
-              handleCategoryChange={handleCategoryChange}
-              categories={expenseCategories}
-            />
+            <FilterSection categories={expenseCategories} />
           </div>
         </div>
 

@@ -1,3 +1,10 @@
+export const initialFormData = {
+  id: "",
+  category: "",
+  amount: "",
+  date: "",
+};
+
 export const initialIncomeData = [
   {
     id: crypto.randomUUID(),
@@ -13,24 +20,24 @@ export const initialIncomeData = [
     date: "2024-10-09",
   },
 
-  {
-    id: crypto.randomUUID(),
-    amount: "10000",
-    category: "Bond",
-    date: "2024-10-09",
-  },
-  {
-    id: crypto.randomUUID(),
-    amount: "70000",
-    category: "Bond",
-    date: "2024-10-09",
-  },
-  {
-    id: crypto.randomUUID(),
-    amount: "90000",
-    category: "Bond",
-    date: "2024-10-09",
-  },
+  // {
+  //   id: crypto.randomUUID(),
+  //   amount: "10000",
+  //   category: "Bond",
+  //   date: "2024-10-09",
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   amount: "70000",
+  //   category: "Bond",
+  //   date: "2024-10-09",
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   amount: "90000",
+  //   category: "Bond",
+  //   date: "2024-10-09",
+  // },
 ];
 
 export const initialExpenseData = [

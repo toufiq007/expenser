@@ -3,92 +3,83 @@ import ExpenseTracker from "../expenseTracker/ExpenceTracker";
 import ExpenseSection from "../expenseSection/ExpenseSection";
 import IncomeSection from "../IncomeSection/IncomeSection";
 import { useState } from "react";
-import { initialExpenseData, initialIncomeData } from "../../utils/utils";
+import {
+  initialExpenseData,
+  initialFormData,
+  initialIncomeData,
+} from "../../utils/utils";
 
 const MainContent = () => {
   const [incomeList, setIncomeList] = useState(initialIncomeData);
   const [expenseList, setExpenseList] = useState(initialExpenseData);
   const [activeTab, setActiveTab] = useState("expense");
-  const [updateExpense, setUpdateExpense] = useState(null);
-  const [updateIncome, setUpdateIncome] = useState(null);
-  const [formData, setFormData] = useState({
-    id: "",
-    category: "",
-    amount: 0,
-    date: "",
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
+  //  this is the balance sheet calculation
   const totalIncome = incomeList.reduce((acc, prev) => {
     return acc + parseInt(prev.amount);
   }, 0);
-
   const totalExpense = expenseList.reduce((acc, prev) => {
     return acc + parseInt(prev.amount);
   }, 0);
-
   const tatalBalance = totalIncome - totalExpense;
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData({ ...formData, [name]: value });
-  };
+  //  adding or editing the expenses
   const handleAddOrEditExpense = (newExpenseData) => {
-    // Check if the new expense already exists in the list
-    const existingExpense = expenseList.find(
+    const isExist = expenseList.find(
       (expense) => expense.id === newExpenseData.id
     );
-    if (existingExpense) {
-      // Edit the existing expense
-      setExpenseList((prevExpenses) =>
-        prevExpenses.map((expense) =>
-          expense.id === newExpenseData.id ? newExpenseData : expense
+    if (isExist) {
+      setExpenseList((prev) =>
+        prev.map((expense) =>
+          expense.id === newExpenseData.id ? { ...newExpenseData } : expense
         )
       );
     } else {
-      // Add the new expense
-      setExpenseList((prevExpenses) => [...prevExpenses, newExpenseData]);
+      setExpenseList((prev) => [
+        ...prev,
+        { ...newExpenseData, id: crypto.randomUUID() },
+      ]);
     }
   };
-
+  //   adding ro editing the incomes
   const handleAddOrEditIncome = (newIncomeData) => {
-    // Check if the new expense already exists in the list
-    const existingIncome = incomeList.find(
-      (expense) => expense.id === newIncomeData.id
-    );
-    if (existingIncome) {
-      // Edit the existing income
-      setIncomeList((prevIncomes) =>
-        prevIncomes.map((income) =>
-          income.id === newIncomeData.id ? newIncomeData : income
+    const isExist = incomeList.find((income) => income.id === newIncomeData.id);
+    if (isExist) {
+      setIncomeList((prev) =>
+        prev.map((income) =>
+          income.id === newIncomeData.id ? { ...newIncomeData } : income
         )
       );
     } else {
-      // Add the new income
-      setIncomeList((prevIncomes) => [...prevIncomes, newIncomeData]);
+      setIncomeList((prev) => [
+        ...prev,
+        { ...newIncomeData, id: crypto.randomUUID() },
+      ]);
     }
   };
-
+  //   delete the income
   const handleDeleteIncome = (id) => {
     const updateIncome = incomeList.filter((income) => income.id !== id);
     setIncomeList(updateIncome);
   };
+  //   delete the expense
   const handleDeleteExpense = (id) => {
     const updateIncome = expenseList.filter((income) => income.id !== id);
     setExpenseList(updateIncome);
   };
-
+  //   set the update expense
   const handleFindUpdateExpense = (expense) => {
     setActiveTab("expense");
-    setUpdateExpense(expense);
     setFormData(expense);
   };
-
+  //   set the update income
   const handleFindUpdateIncome = (income) => {
     setActiveTab("income");
-    setUpdateIncome(income);
     setFormData(income);
   };
+
+  //   sorting the income or expense list
   const lowToHighSort = (unsortedList, sortCondition, dataList) => {
     if (sortCondition === "lowtohigh" && dataList === "incomeList") {
       const sortedList = unsortedList.sort(
@@ -119,66 +110,17 @@ const MainContent = () => {
     }
   };
 
-  // code for filtering
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [expenseCategories, setExpenseCategories] = useState([]);
-
-  const handleExpenseChange = (categoryOption) => {
-    let updatedCategories;
-    if (expenseCategories.includes(categoryOption)) {
-      updatedCategories = expenseCategories.filter(
-        (option) => option !== categoryOption
-      );
-    } else {
-      updatedCategories = [...expenseCategories, categoryOption];
-    }
-    setExpenseCategories(updatedCategories);
-    if (updatedCategories.length === 0) {
-      setExpenseList(initialExpenseData);
-    } else {
-      const newFilteredIncomeList = expenseList.filter((income) =>
-        updatedCategories.includes(income.category)
-      );
-
-      console.log(newFilteredIncomeList, "this is inside expenseSection");
-      setExpenseList(newFilteredIncomeList);
-    }
-  };
-
-  const handleCategoryChange = (categoryOption) => {
-    let updatedCategories;
-    if (selectedCategories.includes(categoryOption)) {
-      updatedCategories = selectedCategories.filter(
-        (option) => option !== categoryOption
-      );
-    } else {
-      updatedCategories = [...selectedCategories, categoryOption];
-    }
-    setSelectedCategories(updatedCategories);
-    if (updatedCategories.length === 0) {
-      setIncomeList(initialIncomeData);
-    } else {
-      const newFilteredIncomeList = incomeList.filter((income) =>
-        updatedCategories.includes(income.category)
-      );
-      setIncomeList(newFilteredIncomeList);
-    }
-  };
-
   return (
     <>
       <main className="relative mx-auto mt-10 w-full max-w-7xl">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <ExpenseTracker
-            handleAddOrEditExpense={handleAddOrEditExpense}
-            handleAddOrEditIncome={handleAddOrEditIncome}
             formData={formData}
             setFormData={setFormData}
-            updateExpense={updateExpense}
-            updateIncome={updateIncome}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            handleChange={handleChange}
+            handleAddOrEditExpense={handleAddOrEditExpense}
+            handleAddOrEditIncome={handleAddOrEditIncome}
           />
           <div className="lg:col-span-2">
             <BalanceSheet
@@ -190,22 +132,18 @@ const MainContent = () => {
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
               <IncomeSection
-                handleDeleteIncome={handleDeleteIncome}
                 incomeList={incomeList}
-                handleFindUpdateIncome={handleFindUpdateIncome}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
-                selectedCategories={selectedCategories}
-                handleCategoryChange={handleCategoryChange}
+                handleFindUpdateIncome={handleFindUpdateIncome}
+                handleDeleteIncome={handleDeleteIncome}
               />
               <ExpenseSection
-                handleDeleteExpense={handleDeleteExpense}
                 expenseList={expenseList}
-                handleFindUpdateExpense={handleFindUpdateExpense}
                 lowToHighSort={lowToHighSort}
                 highToLowSort={highToLowSort}
-                selectedCategories={expenseCategories}
-                handleCategoryChange={handleExpenseChange}
+                handleFindUpdateExpense={handleFindUpdateExpense}
+                handleDeleteExpense={handleDeleteExpense}
               />
             </div>
           </div>

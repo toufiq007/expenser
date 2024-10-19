@@ -2,11 +2,7 @@
 import { useState } from "react";
 import { FilterIcon } from "../../assets/svgicons/svgIcons";
 
-const FilterSection = ({
-  handleCategoryChange,
-  selectedCategories,
-  categories,
-}) => {
+const FilterSection = ({ categories }) => {
   const [showFilterSection, setShowFilterSection] = useState(false);
   return (
     <>
@@ -41,12 +37,6 @@ const FilterSection = ({
                 >
                   <input
                     type="checkbox"
-                    checked={selectedCategories.includes(
-                      category.categoryOption
-                    )}
-                    onChange={() =>
-                      handleCategoryChange(category.categoryOption)
-                    }
                     className="form-checkbox h-4 w-4 rounded-md text-gray-600"
                     id={category.id}
                   />

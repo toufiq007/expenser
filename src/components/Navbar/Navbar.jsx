@@ -8,7 +8,8 @@ const Navbar = () => {
           {/* <!-- Logo --> */}
           <div>
             {/* <img src="./assets/image/favicon.svg" className="h-14" /> */}
-            <LogoIcon />
+            {/* <LogoIcon /> */}
+            <h2 className="text-3xl font-bold">Expenser</h2>
           </div>
 
           {/* <!-- Menu --> */}
